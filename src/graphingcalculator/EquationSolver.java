@@ -69,8 +69,14 @@ public class EquationSolver {
                 return Math.pow(x, solveChunck(chunk.split("\\^")[1], x, y, z));
             }else if(chunk.startsWith("-x")) {
                 return Math.pow(x, solveChunck(chunk.split("\\^")[1], x, y, z)) * -1;
-            }else{
+            }if(chunk.startsWith("y")) {
+                return Math.pow(y, solveChunck(chunk.split("\\^")[1], x, y, z));
+            }else if(chunk.startsWith("-y")) {
+                return Math.pow(y, solveChunck(chunk.split("\\^")[1], x, y, z)) * -1;
+            }else if(chunk.contains("x")) {
                 return Math.pow(x, solveChunck(chunk.split("\\^")[1], x, y, z)) * solveChunck(chunk.split("x")[0], x, y, z);
+            }else if(chunk.contains("y")) {
+                return Math.pow(y, solveChunck(chunk.split("\\^")[1], x, y, z)) * solveChunck(chunk.split("y")[0], x, y, z);
             }
         }else if((chunk.contains("*") || chunk.contains("/"))) {
             String front = "";
@@ -111,12 +117,6 @@ public class EquationSolver {
                 return y;
             }else{
                 return y * Double.parseDouble(chunk.split("y")[0]);
-            }
-        }else if(chunk.contains("z") && getPar(chunk) == 0) {
-            if(chunk.equals("z")) {
-                return z;
-            }else{
-                return z * Double.parseDouble(chunk.split("z")[0]);
             }
         }else{
             try {
